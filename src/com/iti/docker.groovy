@@ -5,8 +5,11 @@ def build(IMAGE_NAME, IMAGE_TAG){
 }
 
 def login(USERNAME, PASSWORD){
-    sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+    sh """
+        echo "${PASSWORD}" | docker login -u "${USERNAME}" --password-stdin
+    """
 }
+
 
 def push(IMAGE_NAME, IMAGE_TAG){
     sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
